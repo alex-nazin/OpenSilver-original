@@ -72,7 +72,14 @@ namespace Windows.UI.Xaml
             // For TextBlock
             if (associatedTextBlock != null)
             {
-                INTERNAL_VisualTreeManager.DetachVisualChildIfNotNull(associatedTextBlock, parent);
+                try
+                {
+                    INTERNAL_VisualTreeManager.DetachVisualChildIfNotNull(associatedTextBlock, parent);
+                }
+                catch (Exception)
+                {
+                    //Temporary measure so that the exception caused by creating a new Window instance in the Xaml into Blazor POC does not prevent the Xaml element from being added and from working.
+                }
             }
 
             associatedTextBlock = new TextBlock

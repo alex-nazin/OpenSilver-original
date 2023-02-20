@@ -131,7 +131,7 @@ namespace Windows.UI.Xaml
             INTERNAL_RootDomElement = rootDomElement ?? throw new ArgumentNullException(nameof(rootDomElement));
 
             // Reset the content of the root DIV:
-            OpenSilver.Interop.ExecuteJavaScriptFastAsync("document.clearXamlRoot()");
+            //OpenSilver.Interop.ExecuteJavaScriptFastAsync("document.clearXamlRoot()"); //this causes errors in the Xaml into Blazor POC due to removing the div root of the Xaml Element.
 
             // In case of XAML view hosted inside an HTML app, we usually set the "position" of the window root to "relative" rather than "absolute" (via external JavaScript code) in order to display it inside a specific DIV. However, in this case, the layers that contain the Popups are placed under the window DIV instead of over it. To work around this issue, we set the root element display to "grid". See the sample app "IntegratingACshtml5AppInAnSPA".
             string sRootElement = INTERNAL_InteropImplementation.GetVariableStringForJS(rootDomElement);
@@ -140,7 +140,7 @@ namespace Windows.UI.Xaml
             // Create the DIV that will correspond to the root of the window visual tree:
             var windowRootDivStyle = INTERNAL_HtmlDomManager.CreateDomElementAppendItAndGetStyle("div", rootDomElement, this, out object windowRootDiv);
 
-            windowRootDivStyle.position = "absolute";
+            //windowRootDivStyle.position = "absolute"; //This causes an issue in the Xaml into Blazor POC where the element does not take the space it needs to be properly displayed, causing it to not be visible at all.
             windowRootDivStyle.width = "100%";
             windowRootDivStyle.height = "100%";
             windowRootDivStyle.overflowX = "hidden";
