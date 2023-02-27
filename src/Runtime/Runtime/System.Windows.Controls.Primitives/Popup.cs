@@ -606,7 +606,7 @@ namespace Windows.UI.Xaml.Controls.Primitives
             return container;
         }
 
-        private Window GetParentWindowOfPopup()
+        internal Window GetParentWindowOfPopup()
         {
             // If the popup has a placement target, and the latter is in the visual tree,
             // we get the window from there. Otherwise, if the popup itself is inthe visual

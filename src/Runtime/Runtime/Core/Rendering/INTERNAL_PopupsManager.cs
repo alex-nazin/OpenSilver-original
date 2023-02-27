@@ -165,7 +165,7 @@ if (popupRoot) {sWindow}.removeChild(popupRoot);");
                     }
 
                     // Determine the size of the window:
-                    Rect windowBounds = Window.Current.Bounds;
+                    Rect windowBounds = popup.GetParentWindowOfPopup().Bounds;
                     double popupX = popup.HorizontalOffset + popupPosition.X;
                     double popupY = popup.VerticalOffset + popupPosition.Y;
 
