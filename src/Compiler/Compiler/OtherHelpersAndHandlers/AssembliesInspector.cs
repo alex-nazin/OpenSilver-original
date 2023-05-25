@@ -49,6 +49,14 @@ namespace OpenSilver.Compiler
             _monoCecilVersion.LoadAssembly(assemblyPath, loadReferencedAssembliesToo, skipReadingAttributesFromAssemblies);
         }
 
+        public void SetCompilerType(CompilerTypesEnum compierType)
+        {
+            if (_monoCecilVersion == null)
+                throw new Exception("MarshalledObject is null. It should not be null to set Compiler Type.");
+
+            _monoCecilVersion.CompilerType = compierType;
+        }
+
         public string GetContentPropertyName(string namespaceName, string localTypeName, string assemblyNameIfAny = null)
             => _monoCecilVersion.GetContentPropertyName(namespaceName, localTypeName, assemblyNameIfAny);
 
@@ -122,5 +130,12 @@ namespace OpenSilver.Compiler
 
         public string GetField(string fieldName, string namespaceName, string typeName, string assemblyName)
             => _monoCecilVersion.GetField(fieldName, namespaceName, typeName, assemblyName);
+    }
+
+    public enum CompilerTypesEnum
+    {
+        None,
+        CSharp,
+        VBNet,
     }
 }
