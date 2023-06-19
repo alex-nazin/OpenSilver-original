@@ -2,16 +2,16 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net472</TargetFramework>
+		<TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
 		<StartArguments>"..\..\..\..\TestApplication\bin\OpenSilver\$(Configuration)\netstandard2.0\TestApplication.OpenSilver.dll"</StartArguments>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="OpenSilver.Simulator" Version="1.1.0" />
+	  <PackageReference Include="OpenSilver.Simulator" Version="1.2.0-private-2023-06-19" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TestApplication\TestApplication.OpenSilver.csproj" />
+	  <ProjectReference Include="..\TestApplication\TestApplication.OpenSilver.csproj" />
 	</ItemGroup>
 
 </Project>
