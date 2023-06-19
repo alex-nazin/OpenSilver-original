@@ -134,6 +134,34 @@ namespace OpenSilver.Compiler.Resources
                     return isSuccess;
                 }
             }
+            catch (BadImageFormatException ex)
+            {
+                // Net Core creates host application that is not real CLR application, but only container for DLL and other possible dependencies.
+                // So, instead of open application host executable let's try to find primary DLL for the host and extract resources from it.
+
+                if (Path.GetExtension(sourceAssembly).Equals(".exe", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    string sourceDllAssembly = Path.ChangeExtension(sourceAssembly, ".dll");
+                    if (File.Exists(sourceDllAssembly))
+                    {
+                        logger.WriteMessage(operationName + " fallback for executable app host.");
+
+                        return ExecuteImpl(
+                            sourceDllAssembly,
+                            outputRootPath,
+                            outputResourcesPath,
+                            assembliesToIgnore,
+                            supportedExtensions,
+                            logger,
+                            coreAssemblyFiles,
+                            out listOfCopiedResXFiles);
+                    }
+                }
+
+                logger.WriteError(operationName + " failed: " + ex.ToString());
+                listOfCopiedResXFiles = null;
+                return false;
+            }
             catch (Exception ex)
             {
                 logger.WriteError(operationName + " failed: " + ex.ToString());
